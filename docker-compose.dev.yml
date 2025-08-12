@@ -2,10 +2,9 @@ services:
   api:
     image: portfolio-api
     container_name: portfolio-api
-    restart: unless-stopped
     build:
       context: ./backend
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     ports:
       - "${API_PORT}:3000"
     volumes:
@@ -13,18 +12,16 @@ services:
       - ./backend/.env:/usr/src/app/.env
     environment:
       - NODE_ENV=${NODE_ENV}
-      - API_URL=http://${API_HOST}
-      - APP_URL=http://${APP_HOST}
+      - API_URL=http://localhost:${API_PORT}
+      - APP_URL=http://localhost:${APP_PORT}
       - CHOKIDAR_USEPOLLING=true
   app:
     image: portfolio-app
     container_name: portfolio-app
-    restart: unless-stopped
     build:
       context: ./frontend
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     ports:
-      - NODE_ENV=${NODE_ENV}
       - "${APP_PORT}:4200"
     volumes:
       - ./frontend/src:/usr/src/app/src
