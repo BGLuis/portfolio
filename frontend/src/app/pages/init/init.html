@@ -1,0 +1,16 @@
+<div id="conteiner">
+  <div id="monitor">
+    <div id="header">
+      <app-polygon />
+      <h1>
+        Caregando<br />
+        a simulação ...
+      </h1>
+    </div>
+    <div id="log">
+      @for(log of logs; track $index) {
+      <div class="logs">{{ log }}</div>
+      }
+    </div>
+  </div>
+</div>

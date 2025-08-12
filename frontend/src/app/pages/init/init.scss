@@ -1,0 +1,40 @@
+#conteiner {
+  background-color: #000000;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#monitor {
+  width: 400px;
+  height: 100%;
+  padding: 15% 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  overflow: hidden;
+}
+
+#header {
+  text-align: center;
+}
+
+#log {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  .logs {
+    color: #777;
+    opacity: 0;
+    &::before {
+      content: "-";
+      margin: 10px;
+    }
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        opacity: #{1 - (0.1 * $i)};
+      }
+    }
+  }
+}
