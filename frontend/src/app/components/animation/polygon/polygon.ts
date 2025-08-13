@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
-import { startWith } from 'rxjs/operators';
 
-// Importações da GSAP e do plugin
 import { gsap } from 'gsap';
-import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'; // Requer uma licença Club GreenSock
+import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
 import { PolygonGeometryService } from '../../../service/polygon-geometry';
 
 @Component({
@@ -13,10 +11,8 @@ import { PolygonGeometryService } from '../../../service/polygon-geometry';
   styleUrls: ['./polygon.scss']
 })
 export class Polygon implements OnInit, AfterViewInit, OnDestroy {
-  // Referência ao elemento <polygon> no template [4]
   @ViewChild('poly') polygonRef!: ElementRef<SVGPolygonElement>;
 
-  // Configurações do polígono
   private sides = 2;
   private readonly radius = 100;
   private readonly centerX = 125;
