@@ -18,7 +18,7 @@ export class Polygon implements OnInit, AfterViewInit, OnDestroy {
   private readonly centerX = 125;
   private readonly centerY = 125;
   private animationDuration = 1.5;
-  private trasitionInterval = 3500;
+  private trasitionInterval = 1700;
   private maxSides = 9;
 
   private intervalSubscription!: Subscription;
