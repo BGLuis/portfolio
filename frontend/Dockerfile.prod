@@ -36,4 +36,4 @@ COPY --chown=node:node --from=deps /usr/src/app/node_modules ./node_modules
 
 EXPOSE 4000
 
-CMD ["node", "dist/front/server/server.mjs"]
+CMD ["node", "dist/portfolio/server/server.mjs"]
