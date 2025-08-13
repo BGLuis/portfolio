@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Polygon } from '../../components/animation/polygon/polygon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-init',
@@ -29,11 +30,15 @@ export class Init implements OnInit {
     "Lorem ipsum8",
     "Lorem ipsum9",
     "Lorem ipsum10",
+    "Carregamento completo"
   ];
-  private readonly interval = 950;
+  private readonly interval = 650;
   logs: string[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private readonly router: Router
+  ) {}
   ngOnInit() {
     this.startLogging();
   }
@@ -44,8 +49,7 @@ export class Init implements OnInit {
       this.cdr.detectChanges();
       await new Promise(resolve => setTimeout(resolve, this.interval));
     }
-    this.logs = [...this.logs, "Carregamento completo"];
-    this.cdr.detectChanges();
+    this.router.navigate(['/galaxy']);
   }
 
 }
