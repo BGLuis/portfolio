@@ -1,7 +1,8 @@
 import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
 import * as THREE from 'three';
 import CameraControls from 'camera-controls';
-import { StarSystem, Star, Planet } from '../models/celestial-bodies.model';
+import { StarSystem, Star, Planet, CelestialBody } from '../models/celestial-bodies.model';
 import { starSystems } from '../config/star-systems.config';
 
 import starCoreVertexShader from '../shaders/star-core.vertex';
@@ -28,7 +29,19 @@ export class SceneService implements OnDestroy {
     private rotatableObjects: THREE.Object3D[] = [];
     private orbitalPivots: THREE.Object3D[] = [];
 
+    private _planetSelected$ = new Subject<CelestialBody | null>();
+    public get planetSelected$(): Observable<CelestialBody | null> {
+        return this._planetSelected$.asObservable();
+    }
+
     private frameId: number | null = null;
+    private trackedPlanet: THREE.Object3D | null = null;
+    private raycaster = new THREE.Raycaster();
+    private mouse = new THREE.Vector2();
+
+    get planetFocus(): THREE.Object3D | null {
+        return this.trackedPlanet;
+    }
 
     constructor(private ngZone: NgZone) {
         this.starSystems = starSystems
@@ -46,7 +59,7 @@ export class SceneService implements OnDestroy {
         this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0x000005);
+        this.scene.background = new THREE.Color(0x12151A);
 
         this.camera = new THREE.PerspectiveCamera(
             75,
@@ -60,7 +73,10 @@ export class SceneService implements OnDestroy {
 
         this.cameraControls.dollyToCursor = true;
         this.cameraControls.infinityDolly = true;
+        // this.cameraControls.maxDistance = 100;
 
+        // Adiciona listener de clique para selecionar planeta
+        this.canvas.addEventListener('pointerdown', this.onPointerDown.bind(this));
         this.startRenderingLoop();
 
         this.addStarfield();
@@ -112,10 +128,59 @@ export class SceneService implements OnDestroy {
                         pivot.rotation.y = elapsed * pivot.userData['orbitalSpeed'];
                     }
                 });
+                if (this.trackedPlanet) {
+                    const planetPos = new THREE.Vector3();
+                    this.trackedPlanet.getWorldPosition(planetPos);
+
+                    let planetRadius = 1;
+                    if (this.trackedPlanet instanceof THREE.Mesh && this.trackedPlanet.geometry instanceof THREE.SphereGeometry) {
+                        planetRadius = this.trackedPlanet.geometry.parameters.radius;
+                    }
+
+                    const depthOffset = planetRadius * 4;
+
+                    const newCameraPos = new THREE.Vector3(
+                        planetPos.x,
+                        planetPos.y,
+                        planetPos.z + depthOffset
+                    );
+
+                    const newTargetPos = new THREE.Vector3(
+                        planetPos.x,
+                        newCameraPos.y - (planetRadius * 4) * 0.5,
+                        planetPos.z
+                    );
+
+                    this.cameraControls.setLookAt(
+                        newCameraPos.x,
+                        newCameraPos.y,
+                        newCameraPos.z,
+                        newTargetPos.x,
+                        newTargetPos.y,
+                        newTargetPos.z,
+                        false
+                    );
+                }
                 this.cameraControls.update(delta);
                 this.renderer.render(this.scene, this.camera);
             });
         });
+    }
+
+    private onPointerDown(event: PointerEvent): void {
+        const rect = this.canvas.getBoundingClientRect();
+        this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+        const intersects = this.raycaster.intersectObjects(this.rotatableObjects, false);
+        if (intersects.length > 0) {
+            this.trackedPlanet = intersects[0].object;
+            this._planetSelected$.next(this.trackedPlanet.userData['data'] || null);
+        } else {
+            this.trackedPlanet = null;
+            this._planetSelected$.next(null);
+        }
     }
 
     private createPlanet(planet: Planet, parentPivot: THREE.Object3D): void {
@@ -130,6 +195,7 @@ export class SceneService implements OnDestroy {
             ...planet.properties,
         });
         const planetMesh = new THREE.Mesh(geometry, material);
+        planetMesh.userData['data'] = planet;
         if (planet.rotate) {
             planetMesh.userData['rotation'] = planet.rotate;
         }
@@ -161,6 +227,8 @@ export class SceneService implements OnDestroy {
         this.animatedShaders.push(coreMaterial);
 
         const starCore = new THREE.Mesh(coreGeometry, coreMaterial);
+        // Adiciona referência ao objeto de dados da estrela
+        starCore.userData['data'] = star;
         if (star.rotate) {
             starCore.userData['rotation'] = {
                 x: star.rotate.x,
@@ -207,13 +275,26 @@ export class SceneService implements OnDestroy {
         });
     }
 
+    private createGalaxy(): void {
+
+    }
 
     private addStarfield(): void {
         const vertices = [];
-        for (let i = 0; i < 10000; i++) {
-            const x = THREE.MathUtils.randFloatSpread(2000);
-            const y = THREE.MathUtils.randFloatSpread(2000);
-            const z = THREE.MathUtils.randFloatSpread(2000);
+        const radius = 1000;
+        const starCount = 10000;
+
+        for (let i = 0; i < starCount; i++) {
+            const u = Math.random();
+            const v = Math.random();
+            const theta = 2 * Math.PI * u;
+            const phi = Math.acos(2 * v - 1);
+            const r = radius * Math.cbrt(Math.random());
+
+            const x = r * Math.sin(phi) * Math.cos(theta);
+            const y = r * Math.sin(phi) * Math.sin(theta);
+            const z = r * Math.cos(phi);
+
             vertices.push(x, y, z);
         }
 

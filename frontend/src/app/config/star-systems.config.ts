@@ -12,12 +12,13 @@ const starSystems: StarSystem[] = [
             intensity: 3.5,
             colors: [
                 0x993300,
-                0xfffdd0
+                0xfffdd0,
+                0xfffdd0,
             ],
             light: {
                 color: 0xffffff,
-                intensity: 1.0,
-                distance: 100.0
+                intensity: 1000.0,
+                distance: 1000.0
             },
             rotate: {
                 x: 0.0,
@@ -48,9 +49,10 @@ const starSystems: StarSystem[] = [
                     z: 0.0
                 },
                 orbit: {
-                    radius: 15.0,
+                    radius: 30.0,
                     speed: 1.1
                 },
+                description: 'Isso e um teste para visualização de texto de um planeta'
             }
         ]
     }

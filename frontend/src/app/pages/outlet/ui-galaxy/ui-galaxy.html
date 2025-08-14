@@ -1,1 +1,11 @@
 <router-outlet />
+<nav id="topics" class="panel">
+  <div class="monitor">
+    <div class="screen"></div>
+  </div>
+</nav>
+<section [ngClass]="{ active: observedBodies }" class="panel" id="computer">
+  <div class="monitor">
+    <div class="screen">{{ observedBodies?.description }}</div>
+  </div>
+</section>

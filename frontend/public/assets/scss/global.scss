@@ -1,20 +1,21 @@
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	list-style: none;
-	text-decoration: none;
-	color: inherit;
-	position: relative;
-	font-family: sans-serif;;
-	z-index: 1;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  font-family: sans-serif;
+  z-index: 1;
 }
 
 html {
-	color-scheme: dark;
-    color: #fff;
+  color-scheme: dark;
+  color: #fff;
 }
 
 body {
-	min-height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
 }

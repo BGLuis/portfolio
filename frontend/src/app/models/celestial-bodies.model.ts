@@ -10,6 +10,7 @@ export interface CelestialBody {
     angle: number;
     colors: number[];
     rotate: Rotate;
+    description?: string;
 }
 
 export interface Star extends CelestialBody {
