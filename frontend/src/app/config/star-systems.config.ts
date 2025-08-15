@@ -33,7 +33,29 @@ const starSystems: StarSystem[] = [
         },
         planets: [
             {
-                name: 'Earth',
+                name: 'Mercury',
+                size: 0.4,
+                angle: 0.0,
+                colors: [
+                    0xdeb887
+                ],
+                properties: {
+                    roughness: 0.8,
+                    metalness: 0.5
+                },
+                rotate: {
+                    x: 0.0,
+                    y: 1.2,
+                    z: 0.0
+                },
+                orbit: {
+                    radius: 30.0,
+                    speed: 1.1
+                },
+                description: 'Isso e um teste para visualização de texto de um planeta qualquer tipo 1',
+            },
+            {
+                name: 'Venus',
                 size: 2.0,
                 angle: 0.0,
                 colors: [
@@ -49,10 +71,32 @@ const starSystems: StarSystem[] = [
                     z: 0.0
                 },
                 orbit: {
-                    radius: 30.0,
-                    speed: 1.1
+                    radius: 60.0,
+                    speed: 0.6
                 },
-                description: 'Isso e um teste para visualização de texto de um planeta'
+                description: 'Isso e um teste para visualização de texto de um planeta qualquer tipo 2',
+            },
+            {
+                name: 'Earth',
+                size: 2.0,
+                angle: 0.0,
+                colors: [
+                    0x05C548
+                ],
+                properties: {
+                    roughness: 0.8,
+                    metalness: 0.5
+                },
+                rotate: {
+                    x: 0.0,
+                    y: 1.2,
+                    z: 0.0
+                },
+                orbit: {
+                    radius: 90.0,
+                    speed: 0.3
+                },
+                description: 'Isso e um teste para visualização de texto de um planeta qualquer tipo 3',
             }
         ]
     }
