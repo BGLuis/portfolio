@@ -36,12 +36,14 @@ e acessível.
 
 # 💻 Como iniciar
 
-## Requisitos
+## Iniciando com docker
+
+### Requisitos
 
 -   Habilitar a virtualização no BIOS do seu computador
 -   Ter o Docker instalado
 
-## Instalação do Docker
+### Instalação do Docker
 
 1. Acesse o site oficial: [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
 2. Baixe e instale o Docker conforme seu sistema operacional (Linux, Windows ou Mac).
@@ -53,7 +55,7 @@ docker --version
 docker-compose --version
 ```
 
-## Executando o ambiente de desenvolvimento
+### Executando o ambiente de desenvolvimento
 
 1. No diretório do projeto, execute:
 
@@ -65,6 +67,24 @@ docker compose -f docker-compose.dev.yml up -d --build
 
 ```bash
 docker compose -f docker-compose.dev.yml down
+```
+
+## Executando localmente
+
+### Requisitos
+
+-   Node 22
+
+### Instalação do node
+
+1. Acesse o site oficial: [https://nodejs.org/](https://nodejs.org/)
+2. Baixe e instale o Node.js conforme seu sistema operacional (Linux, Windows ou Mac).
+
+3. Após instalar, verifique se está tudo certo:
+
+```bash
+node --version
+npm --version
 ```
 
 ## 🗂️ Estrutura de Pastas
@@ -80,9 +100,20 @@ portfolio/
 │   ├── package.json
 │   ├── Dockerfile.dev
 │   ├── Dockerfile.prod
+│   ├── public/
+│   │   ├── assets/
+│   │   │   ├── scss/
+│   │   │   │   ├── global.scss
+│   │   ├── favicon.ico
 │   ├── src/
 │   │   ├── environments/...
 │   │   ├── app/
+│   │   │   ├── components/...
+│   │   │   ├── config/...
+│   │   │   ├── models/...
+│   │   │   ├── pages/...
+│   │   │   ├── service/...
+│   │   │   ├── shaders/...
 │   │   ├── index.html
 │   │   ├── main.ts
 │   │   ├── main.server.ts
@@ -100,6 +131,26 @@ portfolio/
 │   │   ├── app.service.ts
 │   │   └── main.ts
 ```
+
+# 🖼️ Wireframes
+
+Abaixo estão os wireframes desenvolvidos para o projeto:
+
+<div align="center">
+
+|                     Tela de Recepção                     |                Galáxia (Home)                 |
+| :------------------------------------------------------: | :-------------------------------------------: |
+| ![Tela de recepção](docs/imgs/Tela%20de%20recepição.png) | ![Galaxia home](docs/imgs/Galaxia%20home.png) |
+
+|                  Sistema Solar                  |                   Planeta (Foco)                    |
+| :---------------------------------------------: | :-------------------------------------------------: |
+| ![Sistema solar](docs/imgs/Sistema%20solar.png) | ![Planeta - foco](docs/imgs/Planeta%20-%20foco.png) |
+
+|                 Planeta Info                  |            Planeta Info (Alternativo)             |
+| :-------------------------------------------: | :-----------------------------------------------: |
+| ![Planeta info](docs/imgs/Planeta%20info.png) | ![Planeta info-1](docs/imgs/Planeta%20info-1.png) |
+
+</div>
 
 # 🤝 Contribuidores
 
