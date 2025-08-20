@@ -1,0 +1,30 @@
+{
+    "ui": {
+        "galaxy": {
+            "configuration": {
+                "title": "Configuração",
+                "description": "Ajuste as configurações para a visualização da galáxia."
+            }
+        }
+    },
+    "star": {
+        "Sun": {
+            "title": "Sistema Solar",
+            "description": "O sistema solar é composto pelo sol e todos os corpos celestes que orbitam ao seu redor."
+        }
+    },
+    "planet": {
+        "Mercury": {
+            "title": "Mercúrio",
+            "description": "Mercúrio é o planeta mais próximo do sol e o menor do sistema solar."
+        },
+        "Venus": {
+            "title": "Vênus",
+            "description": "Vênus é o segundo planeta a partir do sol e é semelhante em tamanho à Terra."
+        },
+        "Earth": {
+            "title": "Terra",
+            "description": "A Terra é o terceiro planeta a partir do sol e o único conhecido por abrigar vida."
+        }
+    }
+}
