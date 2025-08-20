@@ -342,4 +342,49 @@ export class SceneService implements OnDestroy {
         const stars = new THREE.Points(geometry, material);
         this.scene.add(stars);
     }
+
+    public flyToBodyByName(name: string): void {
+        let foundObject: THREE.Object3D | null = null;
+
+        for (const obj of this.rotatableObjects) {
+            const data = obj.userData['data'];
+            if (data && data.name === name) {
+                foundObject = obj;
+                break;
+            }
+        }
+
+        if (foundObject) {
+            const pos = new THREE.Vector3();
+            foundObject.getWorldPosition(pos);
+
+            let radius = 1;
+            if (foundObject instanceof THREE.Mesh && foundObject.geometry instanceof THREE.SphereGeometry) {
+                radius = foundObject.geometry.parameters.radius;
+            }
+            const cameraPos = new THREE.Vector3(pos.x, pos.y, pos.z + radius * 4);
+            this.flyTo(pos, cameraPos, true);
+            this.trackedPlanet = foundObject;
+            this._planetSelected$.next(name);
+        }
+    }
+
+    public flyToCenter(): void {
+        const center = new THREE.Vector3(0, 0, 0);
+        const cameraPos = new THREE.Vector3(0, 0, 50);
+        this.flyTo(center, cameraPos, true);
+        this.trackedPlanet = null;
+        this._planetSelected$.next(null);
+    }
+
+    public flyToSystemByName(systemName: string): void {
+        const system = this.starSystems.find(s => s.name === systemName);
+        if (system) {
+            const pos = new THREE.Vector3(system.position.x, system.position.y, system.position.z);
+            const cameraPos = new THREE.Vector3(pos.x, pos.y, pos.z + 100);
+            this.flyTo(pos, cameraPos, true);
+            this.trackedPlanet = null;
+            this._planetSelected$.next(null);
+        }
+    }
 }
