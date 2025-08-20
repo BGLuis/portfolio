@@ -42,7 +42,6 @@ export interface Planet extends CelestialBody {
 export interface StarSystem {
     name: string;
     position: { x: number; y: number; z: number };
-    description: string;
     star: Star;
     planets: Planet[];
 }

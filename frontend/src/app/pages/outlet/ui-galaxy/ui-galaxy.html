@@ -1,11 +1,56 @@
 <router-outlet />
 <nav id="topics" class="panel">
   <div class="monitor">
-    <div class="screen"></div>
+    <div class="screen">
+      <ul>
+        @for (system of starSystems; track system.name) {
+        <li>
+          <span class="system-header" (click)="toggleSystem(system)">
+            <span class="system-arrow">
+              <span class="arrow-icon" [class.open]="openedSystem === system"
+                >▶</span
+              >
+            </span>
+            <strong class="system-name" (click)="flyToSystem(system.name)"
+              >{{ system.name }}</strong
+            >
+          </span>
+          @if (openedSystem === system) {
+          <ul>
+            @for (planet of system.planets; track planet.originalName) {
+            <li (click)="flyToPlanet(planet.originalName)">
+              {{ planet.name }}
+            </li>
+            }
+          </ul>
+          }
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+  <div class="panel-after topics-after">
+    <app-icons name="travel" [size]="'32'" />
   </div>
 </nav>
 <section [ngClass]="{ active: observedBodies }" class="panel" id="computer">
   <div class="monitor">
-    <div class="screen">{{ observedBodies?.description }}</div>
+    <div class="screen">
+      <h1>{{ planetTranslation?.title || observedBodies }}</h1>
+      <p>{{ planetTranslation?.description || '' }}</p>
+    </div>
   </div>
+  <div class="panel-after computer-after"></div>
 </section>
+
+<div id="configuration" class="panel">
+  <div class="monitor">
+    <div class="screen">
+      <h1>Configuration</h1>
+      <p>Adjust the settings for the galaxy view.</p>
+    </div>
+  </div>
+  <div class="panel-after configuration-after">
+    <app-icons name="gear" [size]="'32'" />
+  </div>
+</div>

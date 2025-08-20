@@ -30,8 +30,8 @@ export class SceneService implements OnDestroy {
     private rotatableObjects: THREE.Object3D[] = [];
     private orbitalPivots: THREE.Object3D[] = [];
 
-    private _planetSelected$ = new Subject<CelestialBody | null>();
-    public get planetSelected$(): Observable<CelestialBody | null> {
+    private _planetSelected$ = new Subject<string | null>();
+    public get planetSelected$(): Observable<string | null> {
         return this._planetSelected$.asObservable();
     }
 
@@ -214,7 +214,8 @@ export class SceneService implements OnDestroy {
         const intersects = this.raycaster.intersectObjects(this.rotatableObjects, false);
         if (intersects.length > 0) {
             this.trackedPlanet = intersects[0].object;
-            this._planetSelected$.next(this.trackedPlanet.userData['data'] || null);
+            const planetData = this.trackedPlanet.userData['data'];
+            this._planetSelected$.next(planetData && planetData.name ? planetData.name : null);
         } else {
             this.trackedPlanet = null;
             this._planetSelected$.next(null);
@@ -265,7 +266,7 @@ export class SceneService implements OnDestroy {
         this.animatedShaders.push(coreMaterial);
 
         const starCore = new THREE.Mesh(coreGeometry, coreMaterial);
-        // Adiciona referência ao objeto de dados da estrela
+
         starCore.userData['data'] = star;
         if (star.rotate) {
             starCore.userData['rotation'] = {

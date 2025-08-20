@@ -4,7 +4,6 @@ const starSystems: StarSystem[] = [
     {
         name: 'Solar',
         position: { x: 0, y: 0, z: 0 },
-        description: 'The Solar System is the gravitationally bound system of the Sun and the objects',
         star: {
             name: 'Sun',
             size: 10.0,
@@ -52,7 +51,6 @@ const starSystems: StarSystem[] = [
                     radius: 30.0,
                     speed: 1.1
                 },
-                description: 'Isso e um teste para visualização de texto de um planeta qualquer tipo 1',
             },
             {
                 name: 'Venus',
@@ -74,7 +72,6 @@ const starSystems: StarSystem[] = [
                     radius: 60.0,
                     speed: 0.6
                 },
-                description: 'Isso e um teste para visualização de texto de um planeta qualquer tipo 2',
             },
             {
                 name: 'Earth',
@@ -96,7 +93,6 @@ const starSystems: StarSystem[] = [
                     radius: 90.0,
                     speed: 0.3
                 },
-                description: 'Isso e um teste para visualização de texto de um planeta qualquer tipo 3',
             }
         ]
     }
