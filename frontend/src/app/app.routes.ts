@@ -27,6 +27,10 @@ export const routes: Routes = [
             {
                 component: Galaxy,
                 path: '',
+            },
+            {
+                component: Galaxy,
+                path: ':body',
             }
         ]
     }

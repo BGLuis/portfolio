@@ -24,8 +24,6 @@ export class Galaxy implements AfterViewInit, OnDestroy {
   }
 
   public flyHome(): void {
-    const target = new THREE.Vector3(0, 0, 0);
-    const cameraPos = new THREE.Vector3(0, 10, 50);
-    this.sceneService.flyTo(target, cameraPos);
+    this.sceneService.flyToCenter();
   }
 }
