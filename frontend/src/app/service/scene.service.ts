@@ -25,6 +25,7 @@ export class SceneService implements OnDestroy {
     private clock = new THREE.Clock();
 
     private starSystems: StarSystem[] = []
+    private _cameraAnimationStartTime?: number;
     private animatedShaders: THREE.ShaderMaterial[] = [];
     private rotatableObjects: THREE.Object3D[] = [];
     private orbitalPivots: THREE.Object3D[] = [];
@@ -137,19 +138,35 @@ export class SceneService implements OnDestroy {
                         planetRadius = this.trackedPlanet.geometry.parameters.radius;
                     }
 
-                    const depthOffset = planetRadius * 4;
-
+                    const CAMERA_DEPTH_FACTOR = 6;
+                    const depthOffset = planetRadius * CAMERA_DEPTH_FACTOR;
                     const newCameraPos = new THREE.Vector3(
                         planetPos.x,
                         planetPos.y,
                         planetPos.z + depthOffset
                     );
-
                     const newTargetPos = new THREE.Vector3(
                         planetPos.x,
-                        newCameraPos.y - (planetRadius * 4) * 0.5,
+                        newCameraPos.y - (planetRadius * CAMERA_DEPTH_FACTOR) * 0.5,
                         planetPos.z
                     );
+
+                    const cameraCurrentPos = this.camera.position;
+                    const distance = cameraCurrentPos.distanceTo(newCameraPos);
+                    let animation = distance > planetRadius * CAMERA_DEPTH_FACTOR;
+
+                    if (animation) {
+                        if (!this._cameraAnimationStartTime) {
+                            this._cameraAnimationStartTime = performance.now();
+                        } else {
+                            const elapsed = (performance.now() - this._cameraAnimationStartTime) / 1000;
+                            if (elapsed > 3) {
+                                animation = false;
+                            }
+                        }
+                    } else {
+                        this._cameraAnimationStartTime = undefined;
+                    }
 
                     this.cameraControls.setLookAt(
                         newCameraPos.x,
@@ -158,8 +175,10 @@ export class SceneService implements OnDestroy {
                         newTargetPos.x,
                         newTargetPos.y,
                         newTargetPos.z,
-                        false
+                        animation
                     );
+                } else {
+                    this._cameraAnimationStartTime = undefined;
                 }
                 this.cameraControls.update(delta);
                 this.renderer.render(this.scene, this.camera);
