@@ -59,6 +59,8 @@ export class SceneService implements OnDestroy {
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
+        window.addEventListener('resize', this.onWindowResize);
+
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(0x12151A);
 
@@ -70,13 +72,14 @@ export class SceneService implements OnDestroy {
         );
         this.camera.position.z = 50;
 
+        this.onWindowResize = this.onWindowResize.bind(this);
+
         this.cameraControls = new CameraControls(this.camera, this.renderer.domElement);
 
         this.cameraControls.dollyToCursor = true;
         this.cameraControls.infinityDolly = true;
         // this.cameraControls.maxDistance = 100;
 
-        // Adiciona listener de clique para selecionar planeta
         this.canvas.addEventListener('pointerdown', this.onPointerDown.bind(this));
         this.startRenderingLoop();
 
@@ -94,6 +97,22 @@ export class SceneService implements OnDestroy {
         if (this.renderer) {
             this.renderer.dispose();
         }
+
+        window.removeEventListener('resize', this.onWindowResize);
+    }
+
+    private onWindowResize(): void {
+        if (!this.renderer || !this.camera || !this.canvas) return;
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        const width = this.canvas.width;
+        const height = window.innerHeight;
+
+        if (width === 0 || height === 0) return;
+        this.camera.aspect = width / height;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(width, height);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     }
 
 
