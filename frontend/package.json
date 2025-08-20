@@ -21,9 +21,12 @@
     "@angular/platform-server": "^20.0.0",
     "@angular/router": "^20.0.0",
     "@angular/ssr": "^20.0.3",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^17.0.0",
     "camera-controls": "^3.1.0",
     "express": "^5.1.0",
     "gsap": "^3.13.0",
+    "ngx-cookie-service": "^20.1.0",
     "rxjs": "~7.8.0",
     "three": "^0.179.1",
     "tslib": "^2.3.0"
