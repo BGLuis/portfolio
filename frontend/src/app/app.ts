@@ -1,7 +1,8 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from './service/translate.service';
+import { MetaDataService } from './service/meta-data.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,15 @@ import { TranslateService } from './service/translate.service';
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
-  protected title = 'portifolio';
-
-  constructor(private translateService: TranslateService) {}
+  public metadata = inject(MetaDataService);
+  public translateService = inject(TranslateService);
 
   ngOnInit(): void {
-    // Define o idioma padrão e carrega o arquivo de tradução do assets
     const defaultLang = 'pt';
     this.translateService.setDefaultLang(defaultLang);
     this.translateService.use(defaultLang);
     this.translateService.loadTranslationFromAssets(defaultLang).subscribe();
+
+    this.metadata.initDefaultMeta();
   }
 }
