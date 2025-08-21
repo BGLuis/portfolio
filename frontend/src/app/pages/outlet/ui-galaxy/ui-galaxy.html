@@ -36,8 +36,10 @@
 <section [ngClass]="{ active: observedBodies }" class="panel" id="computer">
   <div class="monitor">
     <div class="screen">
-      <h1>{{ planetTranslation?.title || observedBodies }}</h1>
-      <p>{{ planetTranslation?.description || '' }}</p>
+      <markdown>
+        # {{ planetTranslation?.title || observedBodies }}
+        {{planetTranslation?.description || '' }}
+      </markdown>
     </div>
   </div>
   <div class="panel-after computer-after"></div>
