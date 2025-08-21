@@ -30,7 +30,13 @@ export class TranslateService {
     }
 
     loadLang() {
-        const lang = this.cookieService.get('lang') || this.localStorageService.get('lang') || 'pt';
+        let lang = this.cookieService.get('lang') || this.localStorageService.get('lang');
+        if (!lang) {
+            const browserLangs = navigator.languages ? navigator.languages : [navigator.language];
+            const availableCodes = this.AvailableLanguages.map(l => l.code);
+            lang = browserLangs.find(l => availableCodes.includes(l.split('-')[0])) || 'pt';
+            lang = lang.split('-')[0];
+        }
         this.ngxTranslate.use(lang);
     }
 
