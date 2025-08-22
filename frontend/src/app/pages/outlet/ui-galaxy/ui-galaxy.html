@@ -36,10 +36,22 @@
 <section [ngClass]="{ active: observedBodies }" class="panel" id="computer">
   <div class="monitor">
     <div class="screen">
-      <!-- <markdown> -->
-      # {{ planetTranslation?.title || observedBodies }}
-      {{planetTranslation?.description || '' }}
-      <!-- </markdown> -->
+      <markdown> # {{ planetTranslation?.title || observedBodies }} </markdown>
+      @if (planetTranslation?.description?.length) { @for (paragraph of
+      planetTranslation.description; track paragraph) { @if (paragraph.length >
+      1) {
+      <markdown [data]="'## ' + paragraph[0]"></markdown>
+      @for (item of paragraph.slice(1); track item) {
+      <markdown [data]="item"></markdown>
+      } } @else {
+      <markdown [data]="paragraph[0]"></markdown>
+      }
+      <br /><br />
+      } } @else {
+      <markdown
+        [data]="planetTranslation?.description?.[0]?.[0] || ''"
+      ></markdown>
+      }
     </div>
   </div>
   <div class="panel-after computer-after"></div>

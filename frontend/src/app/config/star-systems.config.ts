@@ -52,7 +52,7 @@ const starSystems: StarSystem[] = [
                 },
             },
             {
-                name: 'Venus',
+                name: 'Projects',
                 size: 2.0,
                 angle: 0.0,
                 colors: [
@@ -73,7 +73,7 @@ const starSystems: StarSystem[] = [
                 },
             },
             {
-                name: 'Earth',
+                name: 'Experiences',
                 size: 2.0,
                 angle: 0.0,
                 colors: [
