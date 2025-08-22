@@ -2,16 +2,15 @@ import { StarSystem } from "../models/celestial-bodies.model";
 
 const starSystems: StarSystem[] = [
     {
-        name: 'Solar',
+        name: 'About Me',
         position: { x: 0, y: 0, z: 0 },
         star: {
-            name: 'Sun',
+            name: 'about me',
             size: 10.0,
             angle: 0.0,
             intensity: 3.5,
             colors: [
                 0x993300,
-                0xfffdd0,
                 0xfffdd0,
             ],
             light: {
@@ -32,7 +31,7 @@ const starSystems: StarSystem[] = [
         },
         planets: [
             {
-                name: 'Mercury',
+                name: 'My',
                 size: 0.4,
                 angle: 0.0,
                 colors: [

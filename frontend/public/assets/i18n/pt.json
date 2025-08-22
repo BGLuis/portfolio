@@ -14,6 +14,17 @@
         }
     },
     "planet": {
+        "My": {
+            "title": "Eu",
+            "description": [
+                [
+                    "Olá! Sou Joana Silva, uma desenvolvedora Full-Stack apaixonada por criar soluções digitais que sejam ao mesmo tempo elegantes e eficientes. Com mais de 5 anos de experiência no mercado, meu foco é transformar ideias complexas em aplicações web robustas e intuitivas, utilizando as melhores práticas de desenvolvimento para garantir escalabilidade e uma experiência de usuário impecável."
+                ],
+                [
+                    ""
+                ]
+            ]
+        },
         "Mercury": {
             "title": "Mercúrio",
             "description": "Mercúrio é o planeta mais próximo do sol e o menor do sistema solar."
