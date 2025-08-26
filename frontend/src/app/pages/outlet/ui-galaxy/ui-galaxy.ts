@@ -8,9 +8,10 @@ import { Subscription } from 'rxjs';
 import { NgClass } from '@angular/common';
 import { IconsComponent } from '@components/icons/icons';
 import { MarkdownModule } from 'ngx-markdown';
+import { SelectorLanguage } from '@app/components/selector-language/selector-language';
 @Component({
   selector: 'app-ui-galaxy',
-  imports: [RouterOutlet, NgClass, IconsComponent, MarkdownModule],
+  imports: [RouterOutlet, NgClass, IconsComponent, MarkdownModule, SelectorLanguage],
   templateUrl: './ui-galaxy.html',
   styleUrl: './ui-galaxy.scss'
 })

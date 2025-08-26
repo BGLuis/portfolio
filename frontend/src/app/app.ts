@@ -16,11 +16,6 @@ export class App implements OnInit {
   public translateService = inject(TranslateService);
 
   ngOnInit(): void {
-    const defaultLang = 'pt';
-    this.translateService.setDefaultLang(defaultLang);
-    this.translateService.use(defaultLang);
-    this.translateService.loadTranslationFromAssets(defaultLang).subscribe();
-
     this.metadata.initDefaultMeta();
   }
 }

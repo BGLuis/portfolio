@@ -1,0 +1,19 @@
+<div class="lang-selector">
+  <button class="lang-btn" (click)="toggleDropdown()" type="button">
+    <app-icons size="60" [name]="currentLangObj.flagPath" />
+    <span class="lang-label">{{ currentLangObj.label }}</span>
+  </button>
+  @if (dropdownOpen) {
+  <ul class="lang-dropdown">
+    @for(lang of languages; track lang.code) {
+    <li
+      (click)="selectLang(lang.code)"
+      [class.selected]="lang.code === currentLang"
+    >
+      <app-icons size="60" [name]="lang.flagPath" />
+      <span class="lang-label">{{ lang.label }}</span>
+    </li>
+    }
+  </ul>
+  }
+</div>

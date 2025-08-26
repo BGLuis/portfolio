@@ -6,4 +6,5 @@ export interface LanguageOption {
 
 export const AVAILABLE_LANGUAGES: LanguageOption[] = [
     { code: 'pt', label: 'Português', flagPath: 'br' },
+    { code: 'en', label: 'English', flagPath: 'us' },
 ];
