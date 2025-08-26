@@ -2,10 +2,7 @@
   <div id="monitor">
     <div id="header">
       <app-polygon />
-      <h1>
-        Caregando<br />
-        a simulação ...
-      </h1>
+      <h1 [innerHTML]="title"></h1>
     </div>
     <div id="log">
       @for(log of logs; track $index) {

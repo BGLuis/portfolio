@@ -1,5 +1,25 @@
 {
     "ui": {
+        "init": {
+            "title": "Loading the simulation...",
+            "logs": {
+                "constant": [
+                    "Assembling the Hello World...",
+                    "Filling the coffee maker...",
+                    "Compiling the coffee..."
+                ],
+                "random": [
+                    "Searching for the missing semicolon...",
+                    "Hiding the Pokédex...",
+                    "Loading planets...",
+                    "Transforming geoids into spheres...",
+                    "Aligning the orbits...",
+                    "Switching to the latest JS framework...",
+                    "Convincing the AI not to become evil...",
+                    "Stopping procrastination..."
+                ]
+            }
+        },
         "galaxy": {
             "configuration": {
                 "title": "Configuration",

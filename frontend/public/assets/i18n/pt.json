@@ -1,5 +1,25 @@
 {
     "ui": {
+        "init": {
+            "title": "Carregando a simulação ...",
+            "logs": {
+                "constant": [
+                    "Montando o Hello World...",
+                    "Enchendo a cafeteira...",
+                    "Compilando o café..."
+                ],
+                "random": [
+                    "Procurando o ponto e vírgula perdido...",
+                    "Escondendo a Pokédex...",
+                    "Carregando planetas...",
+                    "Transformando geoides em esferas...",
+                    "Alinhando as órbitas...",
+                    "Trocando para o framework JS mais recente...",
+                    "Convencendo a IA a não se tornar maligna...",
+                    "Parando de procastinar..."
+                ]
+            }
+        },
         "galaxy": {
             "configuration": {
                 "title": "Configuração",

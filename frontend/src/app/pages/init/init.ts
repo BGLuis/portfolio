@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Polygon } from '../../components/animation/polygon/polygon';
 import { Router } from '@angular/router';
+import { TranslateService } from '../../service/translate.service';
 
 @Component({
   selector: 'app-init',
@@ -9,47 +10,43 @@ import { Router } from '@angular/router';
   styleUrl: './init.scss'
 })
 export class Init implements OnInit {
-  private text = [
-    "Lorem ipsum1",
-    "Lorem ipsum2",
-    "Lorem ipsum3",
-    "Lorem ipsum4",
-    "Lorem ipsum5",
-    "Lorem ipsum6",
-    "Lorem ipsum7",
-    "Lorem ipsum8",
-    "Lorem ipsum9",
-    "Lorem ipsum10",
-    "Lorem ipsum1",
-    "Lorem ipsum2",
-    "Lorem ipsum3",
-    "Lorem ipsum4",
-    "Lorem ipsum5",
-    "Lorem ipsum6",
-    "Lorem ipsum7",
-    "Lorem ipsum8",
-    "Lorem ipsum9",
-    "Lorem ipsum10",
-    "Carregamento completo"
-  ];
-  private readonly interval = 650;
+  private readonly interval = 850;
   logs: string[] = [];
+  private logConstants: string[] = [];
+  private logRandom: string[] = [];
+  title = '';
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private readonly router: Router
+    private readonly router: Router,
+    private translate: TranslateService
   ) {}
+
   ngOnInit() {
-    this.startLogging();
+    this.translate.get(['ui.init.title', 'ui.init.logs.constant', 'ui.init.logs.random']).subscribe((res: any) => {
+      this.title = (res['ui.init.title'] || '').replace(/\n/g, '<br>');
+      this.logConstants = res['ui.init.logs.constant'] || [];
+      this.logRandom = res['ui.init.logs.random'] || [];
+      this.startLogging();
+    });
   }
 
   private async startLogging() {
-    for (const text of this.text) {
+    for (const text of this.logConstants) {
+      this.logs = [text, ...this.logs];
+      this.cdr.detectChanges();
+      await new Promise(resolve => setTimeout(resolve, this.interval));
+    }
+    const shuffled = this.logRandom
+      .map(value => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
+      .slice(0, 3);
+    for (const text of shuffled) {
       this.logs = [text, ...this.logs];
       this.cdr.detectChanges();
       await new Promise(resolve => setTimeout(resolve, this.interval));
     }
     this.router.navigate(['/galaxy']);
   }
-
 }
