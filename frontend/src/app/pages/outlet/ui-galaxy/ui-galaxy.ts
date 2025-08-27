@@ -4,14 +4,17 @@ import { Router, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { SceneService } from '@service/scene.service';
 import { TranslateService } from '@service/translate.service';
+import { AboutUsMarkdownService } from '@service/about-us-markdown.service';
+import { ProjectMarkdownService } from '@service/project-markdown.service';
+import { ExperienceMarkdownService } from '@service/experience-markdown.service';
 import { Subscription } from 'rxjs';
-import { NgClass } from '@angular/common';
+import { NgClass, CommonModule } from '@angular/common';
 import { IconsComponent } from '@components/icons/icons';
 import { MarkdownModule } from 'ngx-markdown';
 import { SelectorLanguage } from '@app/components/selector-language/selector-language';
 @Component({
   selector: 'app-ui-galaxy',
-  imports: [RouterOutlet, NgClass, IconsComponent, MarkdownModule, SelectorLanguage],
+  imports: [RouterOutlet, NgClass, IconsComponent, MarkdownModule, SelectorLanguage, CommonModule],
   templateUrl: './ui-galaxy.html',
   styleUrl: './ui-galaxy.scss'
 })
@@ -20,6 +23,7 @@ export class UiGalaxy {
   subscription: Subscription;
   observedBodies: string | null = null;
   planetTranslation: any = null;
+  planetMarkdown: string | null = null;
   starSystems: any[] = [];
 
   constructor(
@@ -28,7 +32,10 @@ export class UiGalaxy {
     private cdr: ChangeDetectorRef,
     private router: Router,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private aboutUsMarkdown: AboutUsMarkdownService,
+    private projectMarkdown: ProjectMarkdownService,
+    private experienceMarkdown: ExperienceMarkdownService
   ) {
     this.starSystems = starSystems.map((system, systemIndex) => ({
       name: system.name,
@@ -51,10 +58,21 @@ export class UiGalaxy {
       if (planetName) {
         this.translateService.get(`planet.${planetName}`).subscribe(planetObj => {
           this.planetTranslation = planetObj;
+          // Geração de markdown conforme o tipo de planeta
+          if (planetName === 'My' && planetObj?.data) {
+            this.planetMarkdown = this.aboutUsMarkdown.toMarkdown(planetObj.data);
+          } else if (planetName === 'Projects' && planetObj?.data) {
+            this.planetMarkdown = this.projectMarkdown.toMarkdown({ title: planetObj.title, projects: planetObj.data });
+          } else if (planetName === 'Experiences' && planetObj?.data) {
+            this.planetMarkdown = this.experienceMarkdown.jsonToMarkdown({ title: planetObj.title, experiences: planetObj.data });
+          } else {
+            this.planetMarkdown = null;
+          }
           this.cdr.markForCheck();
         });
       } else {
         this.planetTranslation = null;
+        this.planetMarkdown = null;
         this.cdr.markForCheck();
       }
     });

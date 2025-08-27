@@ -30,61 +30,73 @@
     "star": {
         "Sun": {
             "title": "Sistema Solar",
-            "description": "O sistema solar é composto pelo sol e todos os corpos celestes que orbitam ao seu redor."
+            "data": "O sistema solar é composto pelo sol e todos os corpos celestes que orbitam ao seu redor."
         }
     },
     "planet": {
         "My": {
             "title": "Sobre mim",
-            "description": [
-                [
-                    "Olá! Sou Luis Henrique, um desenvolvedor Full-Stack apaixonado por criar soluções digitais que sejam ao mesmo tempo elegantes e eficientes. Com mais de 5 anos de experiência no mercado, meu foco é transformar ideias complexas em aplicações web robustas e intuitivas, utilizando as melhores práticas de desenvolvimento para garantir escalabilidade e uma experiência de usuário impecável."
-                ],
-                [
-                    "Primeiro Contato",
-                    "Minha jornada na tecnologia não começou com linhas de código, mas com o som característico de um modem discado e a tela de um antigo computador de tubo. Lembro-me vividamente da primeira vez que tive acesso a um PC com Windows 98; era uma caixa cheia de mistérios e possibilidades infinitas. Passava horas explorando o Paint, organizando arquivos em pastas que não levavam a lugar nenhum e, principalmente, tentando entender como aquela máquina conseguia criar mundos inteiros dentro de um monitor. Foi essa curiosidade infantil, essa vontade de desvendar a \"mágica\" por trás da tela, que plantou a semente da minha paixão e me guiou até a carreira que tenho hoje. Aquele fascínio inicial nunca me abandonou; apenas evoluiu."
-                ]
+            "data": [
+                {
+                    "title": "Sobre Min",
+                    "paragraphs": [
+                        "Olá! Sou Luis Henrique, um desenvolvedor Full-Stack apaixonado por criar soluções digitais que sejam ao mesmo tempo elegantes e eficientes. Com mais de 5 anos de experiência no mercado, meu foco é transformar ideias complexas em aplicações web robustas e intuitivas, utilizando as melhores práticas de desenvolvimento para garantir escalabilidade e uma experiência de usuário impecável."
+                    ]
+                },
+                {
+                    "title": "Primeiro contato",
+                    "paragraphs": [
+                        "Minha jornada na tecnologia não começou com linhas de código, mas com o som característico de um modem discado e a tela de um antigo computador de tubo. Lembro-me vividamente da primeira vez que tive acesso a um PC com Windows 98; era uma caixa cheia de mistérios e possibilidades infinitas. Passava horas explorando o Paint, organizando arquivos em pastas que não levavam a lugar nenhum e, principalmente, tentando entender como aquela máquina conseguia criar mundos inteiros dentro de um monitor. Foi essa curiosidade infantil, essa vontade de desvendar a \"mágica\" por trás da tela, que plantou a semente da minha paixão e me guiou até a carreira que tenho hoje. Aquele fascínio inicial nunca me abandonou; apenas evoluiu."
+                    ]
+                },
+                {
+                    "title": "Por que eu programo",
+                    "paragraphs": []
+                }
             ]
         },
         "Projects": {
             "title": "Projetos",
-            "description": [
-                [
-                    "Gatuno",
-                    "Tecnologias: typescript, docker, angular, nestjs, mysql, selenium",
-                    "Um projeto de agregador de livros , que recolhe os livros de diversas fontes e disponibiliza para o usuário em um único local."
-                ],
-                [
-                    "Tradutor",
-                    "Tecnologias: python, ruby, ollama, googletradutor",
-                    "Um projeto de tradução de jogos de RPGMAKER que utiliza inteligência artificial para fornecer traduções precisas e contextuais."
-                ]
+            "data": [
+                {
+                    "title": "Gatuno",
+                    "technologies": [
+                        "typescript",
+                        "docker",
+                        "angular",
+                        "nestjs",
+                        "mysql",
+                        "selenium"
+                    ],
+                    "description": "Um projeto de agregador de livros , que recolhe os livros de diversas fontes e disponibiliza para o usuário em um único local."
+                },
+                {
+                    "title": "Tradutor",
+                    "technologies": [
+                        "python",
+                        "ruby",
+                        "ollama",
+                        "googletradutor"
+                    ],
+                    "description": "Um projeto de tradução de jogos de RPGMAKER que utiliza inteligência artificial para fornecer traduções precisas e contextuais."
+                }
             ]
-        },
-        "Venus": {
-            "title": "Vênus",
-            "description": "Vênus é o segundo planeta a partir do sol e é semelhante em tamanho à Terra."
         },
         "Experiences": {
             "title": "Experiências",
-            "description": [
-                [
-                    "Desenvolvedor Full-Stack",
-                    "Empresa XYZ",
-                    "Jan 2020 - Presente",
-                    "Responsável pelo desenvolvimento de aplicações web escaláveis utilizando Angular, NestJS e Docker. Atuei na liderança de equipes ágeis e na implementação de soluções inovadoras para clientes de diversos setores."
-                ],
-                [
-                    "Desenvolvedor Backend",
-                    "Empresa ABC",
-                    "Jul 2017 - Dez 2019",
-                    "Desenvolvimento de APIs RESTful em Node.js e Python, integração de bancos de dados relacionais e não relacionais, além de automação de processos internos utilizando ferramentas modernas."
-                ]
+            "data": [
+                {
+                    "company": "Cedro Rosa",
+                    "period": "Janeiro de 2022 - Presente",
+                    "position": "Desemvolvedor Full-Stak",
+                    "description": "",
+                    "tasks": [
+                        "Liderei o desenvolvimento do módulo de autenticação para a plataforma principal, resultando em uma melhoria de 20% na segurança.",
+                        "Colaborei em uma equipe ágil para projetar e implementar novas funcionalidades, utilizando e.",
+                        "Otimizei consultas ao banco de dados, reduzindo o tempo de resposta da API em 300ms em média."
+                    ]
+                }
             ]
-        },
-        "Earth": {
-            "title": "Terra",
-            "description": "A Terra é o terceiro planeta a partir do sol e o único conhecido por abrigar vida."
         }
     }
 }
