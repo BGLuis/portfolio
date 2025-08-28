@@ -4,10 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateService } from './service/translate.service';
 import { MetaDataService } from './service/meta-data.service';
 import { MarkdownModule } from 'ngx-markdown';
+import { OverlayNotification } from './components/overlay-notification/overlay-notification';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MarkdownModule],
+  imports: [RouterOutlet, MarkdownModule, OverlayNotification],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

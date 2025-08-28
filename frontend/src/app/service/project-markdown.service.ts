@@ -18,7 +18,7 @@ export class ProjectMarkdownService {
         for (const project of json.projects) {
             md += `## ${project.title}\n\n`;
             if (project.technologies.length) {
-                md += `● ${project.technologies.join(' ● ')}\n\n`;
+                md += `● ${project.technologies.map(a => a.charAt(0).toUpperCase() + a.slice(1)).join(' ● ')}\n\n`;
             }
             md += `${project.description}\n\n`;
         }

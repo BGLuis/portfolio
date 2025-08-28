@@ -1,0 +1,21 @@
+button {
+  display: flex;
+  gap: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  padding: 10px 15px;
+  width: 100%;
+  border: none;
+  outline: none;
+  justify-content: center;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0);
+    outline: 2px solid white;
+  }
+  &:focus {
+    outline: 2px solid white;
+  }
+}

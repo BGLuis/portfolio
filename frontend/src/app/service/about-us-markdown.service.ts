@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+export interface AboutUs {
+    title: string;
+    sections: AboutUsSection[];
+}
 export interface AboutUsSection {
     title: string;
     paragraphs: string[];
@@ -7,33 +11,15 @@ export interface AboutUsSection {
 
 @Injectable({ providedIn: 'root' })
 export class AboutUsMarkdownService {
-    toMarkdown(sections: AboutUsSection[]): string {
+    toMarkdown(json: AboutUs): string {
         let md = '';
-        for (const [i, sec] of sections.entries()) {
+        md += `# ${json.title}\n\n`;
+        for (const [i, sec] of json.sections.entries()) {
             md += i === 0 ? `# ${sec.title}\n\n` : `## ${sec.title}\n\n`;
             for (const p of sec.paragraphs) {
                 md += `${p}\n\n`;
             }
         }
         return md.trim();
-    }
-
-    fromMarkdown(markdown: string): AboutUsSection[] {
-        const lines = markdown.split(/\r?\n/);
-        const sections: AboutUsSection[] = [];
-        let current: AboutUsSection | null = null;
-        for (const line of lines) {
-            if (line.startsWith('# ')) {
-                if (current) sections.push(current);
-                current = { title: line.replace('# ', '').trim(), paragraphs: [] };
-            } else if (line.startsWith('## ')) {
-                if (current) sections.push(current);
-                current = { title: line.replace('## ', '').trim(), paragraphs: [] };
-            } else if (line.trim().length && current) {
-                current.paragraphs.push(line.trim());
-            }
-        }
-        if (current) sections.push(current);
-        return sections;
     }
 }

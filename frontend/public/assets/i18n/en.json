@@ -25,6 +25,18 @@
                 "title": "Configuration",
                 "description": "Adjust the settings for the galaxy view."
             }
+        },
+        "contact": {
+            "title": "Contact",
+            "mail": "E-mail",
+            "phone": "Phone",
+            "linkedin": "LinkedIn",
+            "or": "Or",
+            "sendMessage": "send a message",
+            "name": "Name",
+            "email": "Email",
+            "message": "Message",
+            "send": "Send"
         }
     },
     "star": {
@@ -36,55 +48,73 @@
     "planet": {
         "My": {
             "title": "About Me",
-            "description": [
-                [
-                    "Hello! I'm Luis Henrique, a Full-Stack developer passionate about creating digital solutions that are both elegant and efficient. With over 5 years of experience in the market, my focus is on transforming complex ideas into robust and intuitive web applications, using best development practices to ensure scalability and a flawless user experience."
-                ],
-                [
-                    "First Contact",
-                    "My journey in technology didn't start with lines of code, but with the characteristic sound of a dial-up modem and the screen of an old tube computer. I vividly remember the first time I had access to a PC with Windows 98; it was a box full of mysteries and endless possibilities. I spent hours exploring Paint, organizing files into folders that led nowhere, and mainly trying to understand how that machine could create entire worlds inside a monitor. It was this childlike curiosity, this desire to unravel the 'magic' behind the screen, that planted the seed of my passion and guided me to the career I have today. That initial fascination never left me; it just evolved."
-                ]
+            "data": [
+                {
+                    "title": "About Me",
+                    "paragraphs": [
+                        "Hello! I'm Luis Henrique, a Full-Stack developer passionate about creating digital solutions that are both elegant and efficient. With over 5 years of experience in the market, my focus is to transform complex ideas into robust and intuitive web applications, using best development practices to ensure scalability and a flawless user experience."
+                    ]
+                },
+                {
+                    "title": "First Contact",
+                    "paragraphs": [
+                        "My journey in technology didn't start with lines of code, but with the characteristic sound of a dial-up modem and the screen of an old tube computer. I vividly remember the first time I had access to a PC with Windows 98; it was a box full of mysteries and endless possibilities. I spent hours exploring Paint, organizing files into folders that led nowhere, and mainly trying to understand how that machine could create entire worlds inside a monitor. It was this childlike curiosity, this desire to unravel the 'magic' behind the screen, that planted the seed of my passion and guided me to the career I have today. That initial fascination never left me; it just evolved."
+                    ]
+                },
+                {
+                    "title": "Why I Code",
+                    "paragraphs": []
+                }
             ]
         },
         "Projects": {
             "title": "Projects",
-            "description": [
-                [
-                    "Gatuno",
-                    "Technologies: typescript, docker, angular, nestjs, mysql, selenium",
-                    "A book aggregator project that collects books from various sources and makes them available to the user in a single place."
-                ],
-                [
-                    "Translator",
-                    "Technologies: python, ruby, ollama, google translate",
-                    "A project for translating RPGMAKER games that uses artificial intelligence to provide accurate and contextual translations."
-                ]
+            "data": [
+                {
+                    "title": "Gatuno",
+                    "technologies": [
+                        "typescript",
+                        "docker",
+                        "angular",
+                        "nestjs",
+                        "mysql",
+                        "selenium"
+                    ],
+                    "description": "A book aggregator project that collects books from various sources and makes them available to the user in a single place."
+                },
+                {
+                    "title": "Tradutor",
+                    "technologies": [
+                        "python",
+                        "ruby",
+                        "ollama",
+                        "googletranslate"
+                    ],
+                    "description": "A RPGMAKER game translation project that uses artificial intelligence to provide accurate and contextual translations."
+                }
             ]
-        },
-        "Venus": {
-            "title": "Venus",
-            "description": "Venus is the second planet from the sun and is similar in size to Earth."
         },
         "Experiences": {
             "title": "Experiences",
-            "description": [
-                [
-                    "Full-Stack Developer",
-                    "Company XYZ",
-                    "Jan 2020 - Present",
-                    "Responsible for developing scalable web applications using Angular, NestJS, and Docker. Led agile teams and implemented innovative solutions for clients from various sectors."
-                ],
-                [
-                    "Backend Developer",
-                    "Company ABC",
-                    "Jul 2017 - Dec 2019",
-                    "Development of RESTful APIs in Node.js and Python, integration of relational and non-relational databases, and automation of internal processes using modern tools."
-                ]
+            "data": [
+                {
+                    "company": "Cedro Rosa",
+                    "period": "January 2022 - Present",
+                    "position": "Full-Stack Developer",
+                    "description": "",
+                    "tasks": [
+                        "Led the development of the authentication module for the main platform, resulting in a 20% improvement in security.",
+                        "Collaborated in an agile team to design and implement new features, using modern technologies.",
+                        "Optimized database queries, reducing API response time by an average of 300ms."
+                    ]
+                }
             ]
-        },
-        "Earth": {
-            "title": "Earth",
-            "description": "Earth is the third planet from the sun and the only one known to harbor life."
         }
+    },
+    "experience": {
+        "period": "Period",
+        "position": "Position",
+        "description": "Description",
+        "tasks": "Tasks"
     }
 }

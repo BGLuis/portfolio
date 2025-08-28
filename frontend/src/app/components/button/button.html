@@ -1,0 +1,9 @@
+<button #button [id]="id" [type]="type">
+  @if (rightIcon) {
+  <app-icons [name]="rightIcon" />
+  }
+  <ng-content></ng-content>
+  @if(leftIcon){
+  <app-icons [name]="leftIcon" />
+  }
+</button>

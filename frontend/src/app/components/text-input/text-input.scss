@@ -1,0 +1,73 @@
+.input {
+  position: relative;
+  padding: 0 0.5rem;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+
+  &.label {
+    margin-top: 1.5rem;
+  }
+  &.focused {
+    border: 1px solid #fff;
+    // box-shadow: 0 0 1rem var(--secondary-color);
+  }
+}
+.input-wrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+label {
+  display: block;
+  position: absolute;
+  font-weight: 500;
+  z-index: 2;
+  transition: all 0.3s ease-in-out;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0rem;
+  pointer-events: none;
+}
+label.ative,
+input:focus + label {
+  top: -2.5rem;
+  left: -40px;
+  transform: translateY(0);
+}
+
+app-icons.clickable {
+  cursor: pointer;
+}
+
+.error-messages {
+  --error-count: 0;
+  $line-height: 1.6rem;
+
+  height: calc(var(--error-count) * #{$line-height});
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+
+  &[style*="--error-count: 0"] {
+    margin-top: 0;
+  }
+
+  .error-message {
+    line-height: $line-height;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+  }
+}

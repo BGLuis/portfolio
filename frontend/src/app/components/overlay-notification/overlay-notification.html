@@ -1,0 +1,61 @@
+@if (showModal) {
+<div class="overlay-modal">
+  <div class="modal-content">
+    <div class="close-btn" (click)="closeModal()">
+      <app-icons name="close" />
+    </div>
+    <div id="content">
+      <h2>{{ contactText.title }}</h2>
+      <div id="icons">
+        <a
+          [href]="contactLinks.mail"
+          target="_blank"
+          [title]="contactText.mail"
+        >
+          <app-icons name="mail" />
+        </a>
+        <a
+          [href]="contactLinks.phone"
+          target="_blank"
+          [title]="contactText.phone"
+        >
+          <app-icons name="phone" />
+        </a>
+        <a
+          [href]="contactLinks.linkedin"
+          target="_blank"
+          [title]="contactText.linkedin"
+        >
+          <app-icons name="linkedin" />
+        </a>
+      </div>
+      <h2>{{ contactText.or }}</h2>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <h2>{{ contactText.sendMessage }}</h2>
+        <app-input
+          type="text"
+          formControlName="name"
+          [placeholder]="contactText.name"
+          [errors]="form.get('name')?.errors"
+          [touched]="form.get('name')?.touched ?? false"
+        />
+        <app-input
+          type="email"
+          formControlName="email"
+          [placeholder]="contactText.email"
+          [errors]="form.get('email')?.errors"
+          [touched]="form.get('email')?.touched ?? false"
+        />
+        <app-input
+          type="text"
+          formControlName="message"
+          [placeholder]="contactText.message"
+          [errors]="form.get('message')?.errors"
+          [touched]="form.get('message')?.touched ?? false"
+        />
+        <app-button type="submit">{{ contactText.send }}</app-button>
+      </form>
+    </div>
+  </div>
+</div>
+}

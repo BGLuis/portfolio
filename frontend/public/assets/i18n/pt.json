@@ -25,6 +25,18 @@
                 "title": "Configuração",
                 "description": "Ajuste as configurações para a visualização da galáxia."
             }
+        },
+        "contact": {
+            "title": "Entre em contato",
+            "mail": "E-mail",
+            "phone": "Telefone",
+            "linkedin": "LinkedIn",
+            "or": "Ou",
+            "sendMessage": "envie uma mensagem",
+            "name": "Nome",
+            "email": "Email",
+            "message": "Mensagem",
+            "send": "Enviar"
         }
     },
     "star": {
@@ -98,5 +110,11 @@
                 }
             ]
         }
+    },
+    "experience": {
+        "period": "Período",
+        "position": "Cargo",
+        "description": "Descrição",
+        "tasks": "Tarefas"
     }
 }

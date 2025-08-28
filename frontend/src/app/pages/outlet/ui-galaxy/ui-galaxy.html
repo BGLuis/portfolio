@@ -63,10 +63,11 @@
 <div id="configuration" class="panel">
   <div class="monitor">
     <div class="screen">
-      <h1>Configuration</h1>
-      <p>Adjust the settings for the galaxy view.</p>
+      <h1>{{ configTitle }}</h1>
+      <p>{{ configDescription }}</p>
       <div>
         <app-selector-language />
+        <button (click)="openEmailModal()">Entre em contato</button>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@ import { AboutUsMarkdownService } from '@service/about-us-markdown.service';
 import { ProjectMarkdownService } from '@service/project-markdown.service';
 import { ExperienceMarkdownService } from '@service/experience-markdown.service';
 import { Subscription } from 'rxjs';
+import { ModalEmailService } from '@service/modal-email.service';
 import { NgClass, CommonModule } from '@angular/common';
 import { IconsComponent } from '@components/icons/icons';
 import { MarkdownModule } from 'ngx-markdown';
@@ -19,6 +20,8 @@ import { SelectorLanguage } from '@app/components/selector-language/selector-lan
   styleUrl: './ui-galaxy.scss'
 })
 export class UiGalaxy {
+  configTitle = '';
+  configDescription = '';
   openedSystem: any = null;
   subscription: Subscription;
   observedBodies: string | null = null;
@@ -35,55 +38,60 @@ export class UiGalaxy {
     private route: ActivatedRoute,
     private aboutUsMarkdown: AboutUsMarkdownService,
     private projectMarkdown: ProjectMarkdownService,
-    private experienceMarkdown: ExperienceMarkdownService
+    private experienceMarkdown: ExperienceMarkdownService,
+    private modalEmailService: ModalEmailService
   ) {
-    this.starSystems = starSystems.map((system, systemIndex) => ({
-      name: system.name,
-      planets: system.planets.map((planet, planetIndex) => {
-        let translatedName = planet.name;
-        this.translateService.get(`planet.${planet.name}.title`).subscribe(title => {
-          if (title && typeof title === 'string') {
-            this.starSystems[systemIndex].planets[planetIndex].name = title;
-          }
-        });
-        return {
-          name: translatedName,
-          originalName: planet.name
-        };
-      })
-    }));
+    this.loadTranslations();
+    this.loadStarSystems();
+
+    this.translateService.onLangChange().subscribe(() => {
+      this.loadTranslations();
+      this.loadStarSystems();
+      this.updateSelectedPlanetContent();
+      this.cdr.markForCheck();
+    });
 
     this.subscription = this.sceneService.planetSelected$.subscribe(planetName => {
       this.observedBodies = planetName;
-      if (planetName) {
-        this.translateService.get(`planet.${planetName}`).subscribe(planetObj => {
-          this.planetTranslation = planetObj;
-          // Geração de markdown conforme o tipo de planeta
-          if (planetName === 'My' && planetObj?.data) {
-            this.planetMarkdown = this.aboutUsMarkdown.toMarkdown(planetObj.data);
-          } else if (planetName === 'Projects' && planetObj?.data) {
-            this.planetMarkdown = this.projectMarkdown.toMarkdown({ title: planetObj.title, projects: planetObj.data });
-          } else if (planetName === 'Experiences' && planetObj?.data) {
-            this.planetMarkdown = this.experienceMarkdown.jsonToMarkdown({ title: planetObj.title, experiences: planetObj.data });
-          } else {
-            this.planetMarkdown = null;
-          }
-          this.cdr.markForCheck();
-        });
-      } else {
-        this.planetTranslation = null;
-        this.planetMarkdown = null;
-        this.cdr.markForCheck();
-      }
+      this.updateSelectedPlanetContent();
     });
-
-    // Verifica se a URL já contém um body ao iniciar
-    const urlBody = this.route.snapshot.paramMap.get('body') || this.getBodyFromUrl();
-    if (urlBody) {
-      setTimeout(() => this.flyToPlanet(urlBody!), 0);
-    }
-
   }
+
+  public openEmailModal() {
+    this.modalEmailService.openModal();
+  }
+
+  private loadTranslations() {
+    this.translateService.get('ui.galaxy.configuration.title').subscribe((title: string) => {
+      this.configTitle = title;
+      this.cdr.markForCheck();
+    });
+    this.translateService.get('ui.galaxy.configuration.description').subscribe((desc: string) => {
+      this.configDescription = desc;
+      this.cdr.markForCheck();
+    });
+  }
+
+  private loadStarSystems() {
+    this.starSystems = starSystems.map(system => ({
+      name: system.name,
+      planets: system.planets.map(planet => ({
+        name: planet.name,
+        originalName: planet.name
+      }))
+    }));
+    this.starSystems.forEach((system: any, systemIndex: number) => {
+      system.planets.forEach((planet: any, planetIndex: number) => {
+        this.translateService.get(`planet.${planet.originalName}.title`).subscribe(title => {
+          if (title && typeof title === 'string') {
+            this.starSystems[systemIndex].planets[planetIndex].name = title;
+            this.cdr.markForCheck();
+          }
+        });
+      });
+    });
+  }
+
 
   private getBodyFromUrl(): string | null {
     if (typeof window === 'undefined') return null;
@@ -96,6 +104,34 @@ export class UiGalaxy {
     const match = window.location.pathname.match(/\/galaxy\/(.+)$/);
     return match ? match[1] : null;
   }
+
+
+  private updateSelectedPlanetContent() {
+    const planetName = this.observedBodies;
+    if (planetName) {
+      this.translateService.get(`planet.${planetName}`).subscribe(planetObj => {
+        this.planetTranslation = planetObj;
+        if (planetName === 'My' && planetObj?.data) {
+          this.planetMarkdown = this.aboutUsMarkdown.toMarkdown({
+            title: planetObj.title,
+            sections: planetObj.data
+          });
+        } else if (planetName === 'Projects' && planetObj?.data) {
+          this.planetMarkdown = this.projectMarkdown.toMarkdown({ title: planetObj.title, projects: planetObj.data });
+        } else if (planetName === 'Experiences' && planetObj?.data) {
+          this.planetMarkdown = this.experienceMarkdown.jsonToMarkdown({ title: planetObj.title, experiences: planetObj.data });
+        } else {
+          this.planetMarkdown = null;
+        }
+        this.cdr.markForCheck();
+      });
+    } else {
+      this.planetTranslation = null;
+      this.planetMarkdown = null;
+      this.cdr.markForCheck();
+    }
+  }
+
 
 
   public flyToPlanet(body: string): void {
