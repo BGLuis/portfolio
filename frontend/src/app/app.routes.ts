@@ -27,10 +27,25 @@ export const routes: Routes = [
             {
                 component: Galaxy,
                 path: '',
+                data: {
+                    ssr: {
+                        renderMode: RenderMode.Client,
+                    }
+                },
             },
             {
                 component: Galaxy,
                 path: ':body',
+                data: {
+                    ssr: {
+                        renderMode: RenderMode.Client,
+                    }
+                },
+            }
+        ]
+    }
+];
+
             }
         ]
     }
