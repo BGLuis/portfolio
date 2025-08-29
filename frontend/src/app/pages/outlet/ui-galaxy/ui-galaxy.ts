@@ -1,5 +1,5 @@
 import { starSystems } from '@config/star-systems.config';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, AfterViewInit } from '@angular/core';
 import { Router, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { SceneService } from '@service/scene.service';
@@ -19,7 +19,7 @@ import { SelectorLanguage } from '@app/components/selector-language/selector-lan
   templateUrl: './ui-galaxy.html',
   styleUrl: './ui-galaxy.scss'
 })
-export class UiGalaxy {
+export class UiGalaxy implements AfterViewInit {
   configTitle = '';
   configDescription = '';
   openedSystem: any = null;
@@ -33,9 +33,7 @@ export class UiGalaxy {
     private sceneService: SceneService,
     private translateService: TranslateService,
     private cdr: ChangeDetectorRef,
-    private router: Router,
     private location: Location,
-    private route: ActivatedRoute,
     private aboutUsMarkdown: AboutUsMarkdownService,
     private projectMarkdown: ProjectMarkdownService,
     private experienceMarkdown: ExperienceMarkdownService,
@@ -55,6 +53,17 @@ export class UiGalaxy {
       this.observedBodies = planetName;
       this.updateSelectedPlanetContent();
     });
+  }
+
+  ngAfterViewInit() {
+    const initialBody = UiGalaxy.getBodyFromUrl();
+    if (initialBody) {
+      this.sceneService.flyToBodyByName(initialBody);
+      this.observedBodies = initialBody;
+      this.updateSelectedPlanetContent();
+    } else {
+      this.location.replaceState('/galaxy');
+    }
   }
 
   public openEmailModal() {
@@ -92,19 +101,18 @@ export class UiGalaxy {
     });
   }
 
-
-  private getBodyFromUrl(): string | null {
-    if (typeof window === 'undefined') return null;
-    const match = window.location.pathname.match(/\/galaxy\/(.+)$/);
-    return match ? match[1] : null;
-  }
-
   private static getBodyFromUrl(): string | null {
     if (typeof window === 'undefined') return null;
     const match = window.location.pathname.match(/\/galaxy\/(.+)$/);
-    return match ? match[1] : null;
+    if (!match) return null;
+    const body = match[1];
+    const systemExists = starSystems.some(system => system.name === body);
+    if (systemExists) return body;
+    const planetExists = starSystems.some(system =>
+      system.planets && system.planets.some(planet => planet.name === body)
+    );
+    return planetExists ? body : null;
   }
-
 
   private updateSelectedPlanetContent() {
     const planetName = this.observedBodies;
