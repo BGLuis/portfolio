@@ -24,8 +24,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
     ports:
-      - NODE_ENV=${NODE_ENV}
-      - "${APP_PORT}:4200"
+      - "${APP_PORT}:4000"
     volumes:
       - ./frontend/src:/usr/src/app/src
       - ./frontend/public:/usr/src/app/public
