@@ -39,6 +39,9 @@
             "send": "Enviar"
         }
     },
+    "starSystem": {
+        "AboutMe": "Sobre min"
+    },
     "star": {
         "Sun": {
             "title": "Sistema Solar",

@@ -2,7 +2,7 @@ import { StarSystem } from "../models/celestial-bodies.model";
 
 const starSystems: StarSystem[] = [
     {
-        name: 'About Me',
+        name: 'AboutMe',
         position: { x: 0, y: 0, z: 0 },
         star: {
             name: 'about me',

@@ -84,12 +84,21 @@ export class UiGalaxy implements AfterViewInit {
   private loadStarSystems() {
     this.starSystems = starSystems.map(system => ({
       name: system.name,
+      translatedName: system.name,
       planets: system.planets.map(planet => ({
         name: planet.name,
         originalName: planet.name
       }))
     }));
+
     this.starSystems.forEach((system: any, systemIndex: number) => {
+      this.translateService.get(`starSystem.${system.name}`).subscribe((translated: string) => {
+        if (translated && typeof translated === 'string') {
+          this.starSystems[systemIndex].translatedName = translated;
+          this.cdr.markForCheck();
+        }
+      });
+      
       system.planets.forEach((planet: any, planetIndex: number) => {
         this.translateService.get(`planet.${planet.originalName}.title`).subscribe(title => {
           if (title && typeof title === 'string') {
