@@ -7,7 +7,7 @@ export const environment = {
     },
     email: {
         serviceID: 'service_qy1t0vf',
-        templateID: 'template_wnlw5as',
+        templateID: 'template_z211lb4',
         publicKey: '7YeYbmW6bLcJbEIvG'
     }
 };
