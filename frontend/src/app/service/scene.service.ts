@@ -5,10 +5,13 @@ import CameraControls from 'camera-controls';
 import { StarSystem, Star, Planet, CelestialBody } from '../models/celestial-bodies.model';
 import { starSystems } from '../config/star-systems.config';
 
-import starCoreVertexShader from '../shaders/star-core.vertex';
-import starCoreFragmentShader from '../shaders/star-core.fragment';
-import starAtmosphereVertexShader from '../shaders/star-atmosphere.vertex';
-import starAtmosphereFragmentShader from '../shaders/star-atmosphere.fragment';
+import starCoreVertexShader from '../shaders/star/star-core.vertex';
+import starCoreFragmentShader from '../shaders/star/star-core.fragment';
+import starAtmosphereVertexShader from '../shaders/star/star-atmosphere.vertex';
+import starAtmosphereFragmentShader from '../shaders/star/star-atmosphere.fragment';
+
+import galaxyFragmentShader from '@app/shaders/galax/galaxy.fragment';
+import galaxyVertexShader from '@app/shaders/galax/galaxy.vertex';
 
 
 CameraControls.install({ THREE: THREE });
@@ -39,6 +42,17 @@ export class SceneService implements OnDestroy {
     private trackedPlanet: THREE.Object3D | null = null;
     private raycaster = new THREE.Raycaster();
     private mouse = new THREE.Vector2();
+
+    private galaxyMaterial?: THREE.ShaderMaterial;
+    private galaxyPoints?: THREE.Points;
+    private static readonly GALAXY_RADIUS_X = 1500;
+    private static readonly GALAXY_RADIUS_Y = 800;
+    private static readonly GALAXY_RADIUS_Z = 1500;
+    private static readonly GALAXY_GEOMETRY_RADIUS = Math.max(
+        SceneService.GALAXY_RADIUS_X,
+        SceneService.GALAXY_RADIUS_Y,
+        SceneService.GALAXY_RADIUS_Z
+    );
 
     get planetFocus(): THREE.Object3D | null {
         return this.trackedPlanet;
@@ -84,6 +98,7 @@ export class SceneService implements OnDestroy {
         this.startRenderingLoop();
 
         this.addStarfield();
+        // this.createGalaxy();
         this.createStarSystems();
 
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -113,6 +128,9 @@ export class SceneService implements OnDestroy {
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(width, height);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        // if (this.galaxyMaterial) {
+        //     this.galaxyMaterial.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+        // }
     }
 
 
@@ -131,7 +149,8 @@ export class SceneService implements OnDestroy {
                 const elapsed = this.clock.getElapsedTime();
 
                 this.animatedShaders.forEach(shader => {
-                    shader.uniforms['u_time'].value = elapsed;
+                    if (shader.uniforms['u_time'])
+                        shader.uniforms['u_time'].value = elapsed;
                 });
 
                 this.rotatableObjects.forEach(obj => {
@@ -315,12 +334,41 @@ export class SceneService implements OnDestroy {
     }
 
     private createGalaxy(): void {
+        // A geometria é uma esfera grande que envolve toda a cena.
+        const galaxyGeometry = new THREE.SphereGeometry(SceneService.GALAXY_GEOMETRY_RADIUS, 128, 128);
 
+        // Uniforms que serão passadas para o shader da galáxia.
+        const galaxyUniforms = {
+            u_time: { value: 0.0 },
+            u_radii: { value: new THREE.Vector3(SceneService.GALAXY_RADIUS_X, SceneService.GALAXY_RADIUS_Y, SceneService.GALAXY_RADIUS_Z) },
+            // Cores personalizáveis para o gás da galáxia.
+            u_color1: { value: new THREE.Color('#255AB5') }, // Cor externa (azul)
+            u_color2: { value: new THREE.Color('#9A32A8') }, // Cor interna (púrpura)
+            u_colorCore: { value: new THREE.Color('#FFFFFF') }  // Cor do núcleo (branco)
+        };
+
+        this.galaxyMaterial = new THREE.ShaderMaterial({
+            uniforms: galaxyUniforms,
+            vertexShader: galaxyVertexShader,
+            fragmentShader: galaxyFragmentShader,
+            side: THREE.BackSide, // ATUALIZADO: Renderiza o lado de dentro da esfera.
+            blending: THREE.AdditiveBlending, // Mistura aditiva para um efeito de brilho.
+            transparent: true,
+            depthWrite: false, // Desativa a escrita no buffer de profundidade para evitar artefactos.
+        });
+
+        // Adiciona o material à lista de shaders que precisam ser animados.
+        this.animatedShaders.push(this.galaxyMaterial);
+
+        const galaxyMesh = new THREE.Mesh(galaxyGeometry, this.galaxyMaterial);
+        galaxyMesh.name = 'EllipticalGalaxy';
+
+        this.scene.add(galaxyMesh);
     }
 
     private addStarfield(): void {
         const vertices = [];
-        const radius = 1000;
+        const radius = SceneService.GALAXY_RADIUS_Y;
         const starCount = 10000;
 
         for (let i = 0; i < starCount; i++) {
