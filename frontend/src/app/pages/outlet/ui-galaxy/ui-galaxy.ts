@@ -22,6 +22,7 @@ import { SelectorLanguage } from '@app/components/selector-language/selector-lan
 export class UiGalaxy implements AfterViewInit {
   configTitle = '';
   configDescription = '';
+  contactButtonLabel = '';
   openedSystem: any = null;
   subscription: Subscription;
   observedBodies: string | null = null;
@@ -79,6 +80,10 @@ export class UiGalaxy implements AfterViewInit {
       this.configDescription = desc;
       this.cdr.markForCheck();
     });
+    this.translateService.get('ui.contact.sendMessage').subscribe((label: string) => {
+      this.contactButtonLabel = label;
+      this.cdr.markForCheck();
+    });
   }
 
   private loadStarSystems() {
@@ -98,7 +103,7 @@ export class UiGalaxy implements AfterViewInit {
           this.cdr.markForCheck();
         }
       });
-      
+
       system.planets.forEach((planet: any, planetIndex: number) => {
         this.translateService.get(`planet.${planet.originalName}.title`).subscribe(title => {
           if (title && typeof title === 'string') {

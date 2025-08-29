@@ -136,7 +136,37 @@
   &:hover {
     left: calc(100% - $topics-width);
   }
+
+  .screen {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    app-selector-language {
+      z-index: 22;
+    }
+
+    button {
+      background-color: transparent;
+      border-radius: 5px;
+      border: 1px solid white;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
 }
+
 markdown {
   font-size: 1.1rem;
   line-height: 1.7;

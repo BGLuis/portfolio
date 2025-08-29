@@ -63,11 +63,13 @@
 <div id="configuration" class="panel">
   <div class="monitor">
     <div class="screen">
-      <h1>{{ configTitle }}</h1>
-      <p>{{ configDescription }}</p>
       <div>
+        <h1>{{ configTitle }}</h1>
+        <p>{{ configDescription }}</p>
+      </div>
+      <div class="options">
         <app-selector-language />
-        <button (click)="openEmailModal()">Entre em contato</button>
+        <button (click)="openEmailModal()">{{ contactButtonLabel }}</button>
       </div>
     </div>
   </div>
