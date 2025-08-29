@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit, ViewChild, ElementRef } from '@an
 import { environment } from '../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { ModalEmailService } from '../../service/modal-email.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject, takeUntil } from 'rxjs';
 import { IconsComponent } from '../icons/icons';
 import { TextInput } from '../text-input/text-input';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -20,7 +20,8 @@ export class OverlayNotification implements OnInit, OnDestroy {
   @ViewChild('contactForm', { static: false }) contactForm!: ElementRef<HTMLFormElement>;
   private modalEmailService = inject(ModalEmailService);
   private translateService = inject(TranslateService);
-  private subscription: Subscription | undefined;
+  private subscriptions = new Subscription();
+  private destroy$ = new Subject<void>();
   public showModal = false;
   public contactLinks = environment.contactLinks;
 
@@ -41,18 +42,14 @@ export class OverlayNotification implements OnInit, OnDestroy {
   constructor(
     private readonly fb: FormBuilder,
   ) {
-    this.form = this.fb.group(
-      {
-        name: ['', [Validators.required, Validators.email]],
-        email: ['', [Validators.required, Validators.minLength(3)]],
-        message: ['', [Validators.required, Validators.minLength(5)]]
-      },
-    );
-    this.loadTranslations();
-    this.translateService.onLangChange().subscribe(() => this.loadTranslations());
+    this.form = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      message: ['', [Validators.required, Validators.minLength(5)]]
+    });
   }
 
-  private loadTranslations() {
+  private loadTranslations(): void {
     this.translateService.get([
       'ui.contact.title',
       'ui.contact.mail',
@@ -64,53 +61,57 @@ export class OverlayNotification implements OnInit, OnDestroy {
       'ui.contact.email',
       'ui.contact.message',
       'ui.contact.send'
-    ]).subscribe((res: any) => {
-      this.contactText = {
-        title: res['ui.contact.title'],
-        mail: res['ui.contact.mail'],
-        phone: res['ui.contact.phone'],
-        linkedin: res['ui.contact.linkedin'],
-        or: res['ui.contact.or'],
-        sendMessage: res['ui.contact.sendMessage'],
-        name: res['ui.contact.name'],
-        email: res['ui.contact.email'],
-        message: res['ui.contact.message'],
-        send: res['ui.contact.send']
-      };
-    });
+    ])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res: any) => {
+        this.contactText = {
+          title: res['ui.contact.title'],
+          mail: res['ui.contact.mail'],
+          phone: res['ui.contact.phone'],
+          linkedin: res['ui.contact.linkedin'],
+          or: res['ui.contact.or'],
+          sendMessage: res['ui.contact.sendMessage'],
+          name: res['ui.contact.name'],
+          email: res['ui.contact.email'],
+          message: res['ui.contact.message'],
+          send: res['ui.contact.send']
+        };
+      });
   }
 
   ngOnInit(): void {
-    this.subscription = this.modalEmailService.ModalObservable.subscribe(() => {
-      this.showModal = true;
-    });
+    this.loadTranslations();
+    this.subscriptions.add(
+      this.modalEmailService.ModalObservable.subscribe(() => {
+        this.showModal = true;
+      })
+    );
+    this.subscriptions.add(
+      this.translateService.onLangChange().subscribe(() => this.loadTranslations())
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  closeModal() {
+  closeModal(): void {
     this.showModal = false;
   }
 
-  submit() {
+  submit(): void {
     if (this.form.invalid) return;
-    if (!this.contactForm) return;
-    emailjs.sendForm(environment.email.serviceID,
+    emailjs.send(
+      environment.email.serviceID,
       environment.email.templateID,
-      this.contactForm.nativeElement,
-      {
-        publicKey: environment.email.publicKey,
-      }
+      this.form.value,
+      { publicKey: environment.email.publicKey }
     )
       .then(
-        () => {
-          alert('email enviado com sucesso')
-          console.log('SUCCESS!');
-        },
+        () => {},
         (error) => {
-          alert('falha ao enviar o email')
           console.log('FAILED...', (error as EmailJSResponseStatus).text);
         },
       );
