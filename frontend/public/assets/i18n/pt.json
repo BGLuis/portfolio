@@ -94,6 +94,52 @@
                         "googletradutor"
                     ],
                     "description": "Um projeto de tradução de jogos de RPGMAKER que utiliza inteligência artificial para fornecer traduções precisas e contextuais."
+                },
+                {
+                    "title": "TO-DO List Elaborado",
+                    "technologies": [
+                        "nestjs",
+                        "mysql",
+                        "typescript"
+                    ],
+                    "description": "Foi um projeto para aprender a utilizar as tecnologias mencionadas. Os usuários podem criar grupos e tarefas, as tarefas podem ser atribuídas para outras pessoas."
+                },
+                {
+                    "title": "Pokedex",
+                    "technologies": [
+                        "typescript",
+                        "next.js",
+                        "pokerApi"
+                    ],
+                    "description": "Cumpri o estereótipo de que todo desenvolvedor web tinha que fazer uma pokedex"
+                },
+                {
+                    "title": "Labirinto",
+                    "technologies": [
+                        "javascript",
+                        "html",
+                        "css"
+                    ],
+                    "description": "Uma implementação de um algoritmo de A*"
+                },
+                {
+                    "title": "Tabela periodica",
+                    "technologies": [
+                        "javascript",
+                        "html",
+                        "css",
+                        "python",
+                        "flask"
+                    ],
+                    "description": "Uma tabela periódica com os dados dos elementos químicos."
+                },
+                {
+                    "title": "Tabela periodica Sofrida",
+                    "technologies": [
+                        "html",
+                        "css"
+                    ],
+                    "description": "Uma tabela periódica com os dados dos elementos químicos, com cada pagina criada individualmente"
                 }
             ]
         },

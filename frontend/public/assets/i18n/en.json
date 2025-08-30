@@ -94,6 +94,52 @@
                         "googletranslate"
                     ],
                     "description": "A RPGMAKER game translation project that uses artificial intelligence to provide accurate and contextual translations."
+                },
+                {
+                    "title": "Elaborate TO-DO List",
+                    "technologies": [
+                        "nestjs",
+                        "mysql",
+                        "typescript"
+                    ],
+                    "description": "A project to learn how to use the mentioned technologies. Users can create groups and tasks, and tasks can be assigned to other people."
+                },
+                {
+                    "title": "Pokedex",
+                    "technologies": [
+                        "typescript",
+                        "next.js",
+                        "pokerApi"
+                    ],
+                    "description": "I fulfilled the stereotype that every web developer has to make a pokedex"
+                },
+                {
+                    "title": "Maze",
+                    "technologies": [
+                        "javascript",
+                        "html",
+                        "css"
+                    ],
+                    "description": "An implementation of an A* algorithm"
+                },
+                {
+                    "title": "Periodic Table",
+                    "technologies": [
+                        "javascript",
+                        "html",
+                        "css",
+                        "python",
+                        "flask"
+                    ],
+                    "description": "A periodic table with data on chemical elements."
+                },
+                {
+                    "title": "Suffering Periodic Table",
+                    "technologies": [
+                        "html",
+                        "css"
+                    ],
+                    "description": "A periodic table with data on chemical elements, with each page created individually"
                 }
             ]
         },
