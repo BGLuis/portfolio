@@ -53,20 +53,16 @@
             "title": "About Me",
             "data": [
                 {
-                    "title": "About Me",
+                    "title": "Me",
                     "paragraphs": [
-                        "Hello! I'm Luis Henrique, a Full-Stack developer passionate about creating digital solutions that are both elegant and efficient. With over 5 years of experience in the market, my focus is to transform complex ideas into robust and intuitive web applications, using best development practices to ensure scalability and a flawless user experience."
+                        "Hello! I'm Luis Henrique, a Full-Stack developer and Software Engineering student at PUC Minas. I'm a computing enthusiast, passionate about turning ideas into complete and functional applications."
                     ]
                 },
                 {
-                    "title": "First Contact",
+                    "title": "Why I code",
                     "paragraphs": [
-                        "My journey in technology didn't start with lines of code, but with the characteristic sound of a dial-up modem and the screen of an old tube computer. I vividly remember the first time I had access to a PC with Windows 98; it was a box full of mysteries and endless possibilities. I spent hours exploring Paint, organizing files into folders that led nowhere, and mainly trying to understand how that machine could create entire worlds inside a monitor. It was this childlike curiosity, this desire to unravel the 'magic' behind the screen, that planted the seed of my passion and guided me to the career I have today. That initial fascination never left me; it just evolved."
+                        "Because it's fun"
                     ]
-                },
-                {
-                    "title": "Why I Code",
-                    "paragraphs": []
                 }
             ]
         },

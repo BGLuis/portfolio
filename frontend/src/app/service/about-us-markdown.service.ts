@@ -13,13 +13,14 @@ export interface AboutUsSection {
 export class AboutUsMarkdownService {
     toMarkdown(json: AboutUs): string {
         let md = '';
-        md += `# ${json.title}\n\n`;
+        md += `# ${json.title}\n`;
         for (const [i, sec] of json.sections.entries()) {
-            md += i === 0 ? `# ${sec.title}\n\n` : `## ${sec.title}\n\n`;
+            md += `## ${sec.title}\n`;
             for (const p of sec.paragraphs) {
-                md += `${p}\n\n`;
+                md += `${p}\n`;
             }
         }
+        md += '\n';
         return md.trim();
     }
 }
