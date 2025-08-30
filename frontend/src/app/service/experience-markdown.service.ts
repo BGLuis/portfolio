@@ -26,13 +26,12 @@ export class ExperienceMarkdownService {
         const tasksLabel = this.translateService.instant('experience.tasks');
         for (const exp of json.experiences) {
             md += `## ${exp.company}\n\n`;
-            md += `${periodLabel}: ${exp.period}<br/>\n`;
-            md += `${positionLabel}: ${exp.position}<br/>\n`;
-            md += `${descriptionLabel}: ${exp.description}<br/>\n`;
-            md += `${tasksLabel}:<br/>\n`;
-            md += '\n';
+            md += `${periodLabel}: ${exp.period}<br/>`;
+            md += `${positionLabel}: ${exp.position}<br/>`;
+            md += `${descriptionLabel}: ${exp.description}<br/>`;
+            md += `${tasksLabel}:<br/>`;
             for (const task of exp.tasks) {
-                md += `- ${task}\n\n`;
+                md += `- ${task}<br/>`;
             }
         }
         return md.trim();
