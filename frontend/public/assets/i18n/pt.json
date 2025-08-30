@@ -102,13 +102,24 @@
             "data": [
                 {
                     "company": "Cedro Rosa",
-                    "period": "Janeiro de 2022 - Presente",
-                    "position": "Desemvolvedor Full-Stak",
-                    "description": "",
+                    "period": "setembro de 2024 - junho de 2025",
+                    "position": "Desenvolvedor Full-Stack",
+                    "description": "Evolução de sistema com parceria com universidade federal de Campina Grande",
                     "tasks": [
-                        "Liderei o desenvolvimento do módulo de autenticação para a plataforma principal, resultando em uma melhoria de 20% na segurança.",
-                        "Colaborei em uma equipe ágil para projetar e implementar novas funcionalidades, utilizando e.",
-                        "Otimizei consultas ao banco de dados, reduzindo o tempo de resposta da API em 300ms em média."
+                        "Redução de tempo de resposta, utilizando técnicas de caching e uma arquitetura de eventos",
+                        "Redução do tempo de carregamento das páginas, utilizando ferramentas angular",
+                        "Otimização de consultas ao banco de dados"
+                    ]
+                },
+                {
+                    "company": "Cedro Rosa",
+                    "period": "fevereiro de 2022 - Outubro de 2022",
+                    "position": "Desenvolvedor Full-Stack",
+                    "description": "Plataforma de licenciamento de música",
+                    "tasks": [
+                        "Revitelição de sistema legado",
+                        "Redução de custos em uma infraestrutura em 60%, fazendo migração de sistema",
+                        "Otimização do tamanho da base de dados"
                     ]
                 }
             ]

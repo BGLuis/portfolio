@@ -102,13 +102,24 @@
             "data": [
                 {
                     "company": "Cedro Rosa",
-                    "period": "January 2022 - Present",
+                    "period": "September 2024 - June 2025",
                     "position": "Full-Stack Developer",
-                    "description": "",
+                    "description": "System evolution in partnership with the Federal University of Campina Grande",
                     "tasks": [
-                        "Led the development of the authentication module for the main platform, resulting in a 20% improvement in security.",
-                        "Collaborated in an agile team to design and implement new features, using modern technologies.",
-                        "Optimized database queries, reducing API response time by an average of 300ms."
+                        "Reduced response time using caching techniques and an event-driven architecture",
+                        "Decreased page load times using Angular tools",
+                        "Optimized database queries"
+                    ]
+                },
+                {
+                    "company": "Cedro Rosa",
+                    "period": "February 2022 - October 2022",
+                    "position": "Full-Stack Developer",
+                    "description": "Music licensing platform",
+                    "tasks": [
+                        "Refactoring of legacy system",
+                        "Reduced infrastructure costs by 60% through system migration",
+                        "Optimized database size"
                     ]
                 }
             ]
